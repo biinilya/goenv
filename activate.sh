@@ -1,12 +1,17 @@
 #!/bin/bash
 
 ENV_NAME=$1
+GO_VERSION=$2
 if [ -z "${ENV_NAME}" ]; then
   echo "Goenv name is required"
   return
 fi
 
-GO_VERSION="1.1.2"
+if [ -z "${GO_VERSION}" ]; then
+  GO_VERSION="1.1.1"
+  return
+fi
+
 
 platform='unknown'
 unamestr=`uname`
@@ -21,12 +26,14 @@ fi
 
 # DOWNLOADING GO section
 GO_URL="https://go.googlecode.com/files/go${GO_VERSION}.${platform}-${MACH}.tar.gz"
-GOENV_HOME="${HOME}/.goenv"
+GOENV_CORE="${HOME}/.goenv"
+GOENV_HOME="${HOME}/.goenv/${GO_VERSION}"
+mkdir -p $GOENV_CORE
 mkdir -p $GOENV_HOME
 GOENV_PATH="${GOENV_HOME}/${ENV_NAME}"
-mkdir -p $GOENV_PATH
-mkdir -p $GOENV_PATH/src
-mkdir -p $GOENV_PATH/pkg
+mkdir -p ${GOENV_PATH}
+mkdir -p ${GOENV_PATH}/src
+mkdir -p ${GOENV_PATH}/pkg
 GO_DOWNLOAD_FILE="${GOENV_HOME}/go${GO_VERSION}.tar.gz"
 GO_DIR="${GOENV_HOME}/go-${GO_VERSION}"
 if [ ! -f $GO_DOWNLOAD_FILE ]; then
