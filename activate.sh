@@ -18,7 +18,7 @@ goenv_download() {
   if [ ! -f $GO_DOWNLOAD_FILE ]; then
   	curl $GO_URL > $GO_DOWNLOAD_FILE
   	mkdir -p $GO_DIR
-  	tar -xvzf $GO_DOWNLOAD_FILE -C $GO_DIR
+  	tar -xvzf $GO_DOWNLOAD_FILE -C $GO_DIR || rm -rf $GO_DOWNLOAD_FILE
   fi
 }
 
@@ -26,7 +26,6 @@ goenv_setup() {
   # SETTING VARIABLES UP
   GO_URL="https://go.googlecode.com/files/go${GO_VERSION}.${platform}-${MACH}.tar.gz"
   GOENV_HOME="${HOME}/.goenv"
-  mkdir -p $GOENV_CORE
   mkdir -p $GOENV_HOME
   GOENV_PATH="${GOENV_HOME}/${GOENV_NAME}"
   mkdir -p ${GOENV_PATH}
@@ -71,4 +70,5 @@ goon() {
   fi
   goenv_setup
   goenv_download
+  goclean
 }
