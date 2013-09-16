@@ -41,9 +41,9 @@ goenv_setup() {
   export GOBIN="${GOENV_PATH}/bin"
   export GOPATH="${GOENV_PATH}:$(pwd)"
 
-  ln -sf ${GO_DIR}/bin/go $GOBIN/go
-  ln -sf ${GO_DIR}/bin/gofmt $GOBIN/gofmt
-  ln -sf ${GO_DIR}/bin/godoc $GOBIN/godoc
+  ln -sf ${GO_DIR}/go/bin/go $GOBIN/go
+  ln -sf ${GO_DIR}/go/bin/gofmt $GOBIN/gofmt
+  ln -sf ${GO_DIR}/go/bin/godoc $GOBIN/godoc
 
   alias go="${GOROOT}/bin/go"
   alias godoc="${GOROOT}/bin/godoc"
@@ -80,20 +80,13 @@ goon() {
   goclean
 }
 
-gopak() {
+gom() {
   if [[ -z $GOENV_PATH ]]; then
-    echo "You should init goenv before using gopak"
+    echo "You should init goenv before using gom"
     return
   fi
-  if [ ! -f $GOBIN/pak-1.3.0 ]; then
-    curl -L https://github.com/theplant/pak/archive/1.3.0.tar.gz > $GOENV_TOOLS/pak.tar.gz
-    mkdir -p $GOENV_TOOLS/pak/
-    tar -xvzf $GOENV_TOOLS/pak.tar.gz -C $GOENV_TOOLS/pak/
-    CDIR=$(pwd)
-    cd $GOENV_TOOLS/pak/pak-1.3.0
-    PATH=$GOBIN:$PATH make install
-    cd $CDIR
-    ln -s $GOBIN/pak $GOBIN/pak-1.3.0
+  if [ ! -f $GOBIN/gom ]; then
+    $GOBIN/go get github.com/mattn/gom
   fi
-  $GOBIN/pak $@
+  $GOBIN/gom $@
 }
