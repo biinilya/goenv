@@ -72,3 +72,10 @@ goon() {
   goenv_download
   goclean
 }
+
+gopak() {
+  if [ ! -z $GOBIN/pak ]; then
+    $GOBIN/go get github.com/theplant/pak
+  fi
+  $GOBIN/pak $@
+}
