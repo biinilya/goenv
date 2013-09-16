@@ -74,6 +74,10 @@ goon() {
 }
 
 gopak() {
+  if [[ -z $GOENV_PATH ]]; then
+    echo "You should init goenv before using gopak"
+    return
+  fi
   if [ ! -z $GOBIN/pak ]; then
     $GOBIN/go get github.com/theplant/pak
   fi
