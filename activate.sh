@@ -41,9 +41,9 @@ goenv_setup() {
   export GOBIN="${GOENV_PATH}/bin"
   export GOPATH="${GOENV_PATH}:$(pwd)"
 
-  ln -s ${GO_DIR}/bin/go $GOBIN/go
-  ln -s ${GO_DIR}/bin/gofmt $GOBIN/gofmt
-  ln -s ${GO_DIR}/bin/godoc $GOBIN/godoc
+  ln -sf ${GO_DIR}/bin/go $GOBIN/go
+  ln -sf ${GO_DIR}/bin/gofmt $GOBIN/gofmt
+  ln -sf ${GO_DIR}/bin/godoc $GOBIN/godoc
 
   alias go="${GOROOT}/bin/go"
   alias godoc="${GOROOT}/bin/godoc"
