@@ -26,17 +26,24 @@ goenv_setup() {
   # SETTING VARIABLES UP
   GO_URL="https://go.googlecode.com/files/go${GO_VERSION}.${platform}-${MACH}.tar.gz"
   GOENV_HOME="${HOME}/.goenv"
+  GOENV_TOOLS="${GOENV_HOME}/tools"
   mkdir -p $GOENV_HOME
+  mkdir -p $GOENV_TOOLS
   GOENV_PATH="${GOENV_HOME}/${GOENV_NAME}"
   mkdir -p ${GOENV_PATH}
   mkdir -p ${GOENV_PATH}/src
   mkdir -p ${GOENV_PATH}/pkg
+  mkdir -p ${GOENV_PATH}/bin
   GO_DOWNLOAD_FILE="${GOENV_HOME}/go${GO_VERSION}.tar.gz"
   GO_DIR="${GOENV_HOME}/go-${GO_VERSION}"
 
   export GOROOT="${GO_DIR}/go"
-  export GOBIN="${GOROOT}/bin"
+  export GOBIN="${GOENV_PATH}/bin"
   export GOPATH="${GOENV_PATH}:$(pwd)"
+
+  ln -s ${GO_DIR}/bin/go $GOBIN/go
+  ln -s ${GO_DIR}/bin/gofmt $GOBIN/gofmt
+  ln -s ${GO_DIR}/bin/godoc $GOBIN/godoc
 
   alias go="${GOROOT}/bin/go"
   alias godoc="${GOROOT}/bin/godoc"
@@ -78,8 +85,15 @@ gopak() {
     echo "You should init goenv before using gopak"
     return
   fi
-  if [ ! -z $GOBIN/pak ]; then
-    $GOBIN/go get github.com/theplant/pak
+  if [ ! -f $GOBIN/pak-1.3.0 ]; then
+    curl -L https://github.com/theplant/pak/archive/1.3.0.tar.gz > $GOENV_TOOLS/pak.tar.gz
+    mkdir -p $GOENV_TOOLS/pak/
+    tar -xvzf $GOENV_TOOLS/pak.tar.gz -C $GOENV_TOOLS/pak/
+    CDIR=$(pwd)
+    cd $GOENV_TOOLS/pak/pak-1.3.0
+    PATH=$GOBIN:$PATH make install
+    cd $CDIR
+    ln -s $GOBIN/pak $GOBIN/pak-1.3.0
   fi
   $GOBIN/pak $@
 }
