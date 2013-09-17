@@ -41,9 +41,9 @@ goenv_setup() {
   export GOBIN="${GOENV_PATH}/bin"
   export GOPATH="${GOENV_PATH}:$(pwd)"
 
-  ln -sf ${GO_DIR}/go/bin/go $GOBIN/go
-  ln -sf ${GO_DIR}/go/bin/gofmt $GOBIN/gofmt
-  ln -sf ${GO_DIR}/go/bin/godoc $GOBIN/godoc
+  ln -sf ${GOROOT}/bin/go $GOBIN/go
+  ln -sf ${GOROOT}/bin/gofmt $GOBIN/gofmt
+  ln -sf ${GOROOT}/bin/godoc $GOBIN/godoc
 
   alias go="${GOROOT}/bin/go"
   alias godoc="${GOROOT}/bin/godoc"
@@ -90,5 +90,5 @@ gom() {
     rm -rf vendor
     ln -sf $GOENV_PATH vendor
   fi
-  $GOBIN/gom $@
+  PATH=$GOBIN:$PATH $GOBIN/gom $@
 }
