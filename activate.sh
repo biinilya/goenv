@@ -13,7 +13,7 @@ fi
 
 GO_VERSION=1.1.2
 
-goenv_download() {  
+goenv_download() {
   # DOWNLOADING GO section
   if [ ! -f $GO_DOWNLOAD_FILE ]; then
   	curl $GO_URL > $GO_DOWNLOAD_FILE
@@ -44,10 +44,9 @@ goenv_setup() {
   ln -sf ${GOROOT}/bin/go $GOBIN/go
   ln -sf ${GOROOT}/bin/gofmt $GOBIN/gofmt
   ln -sf ${GOROOT}/bin/godoc $GOBIN/godoc
-
-  alias go="${GOROOT}/bin/go"
-  alias godoc="${GOROOT}/bin/godoc"
-  alias gofmt="${GOROOT}/bin/gofmt"
+  CUR_PATH=$PATH
+  export PATH=$GOBIN
+  for p in ${CUR_PATH//:/ }; do [[ ! "$p" =~ 'goenv' ]] && export PATH="$PATH:$p"; done;
 }
 
 goclean() {
@@ -90,5 +89,5 @@ gom() {
     rm -rf vendor
     ln -sf $GOENV_PATH vendor
   fi
-  PATH=$GOBIN:$PATH $GOBIN/gom $@
+  $GOBIN/gom $@
 }
