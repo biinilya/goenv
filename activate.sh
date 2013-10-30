@@ -44,7 +44,7 @@ goenv_setup() {
   ln -sf ${GOROOT}/bin/go $GOBIN/go
   ln -sf ${GOROOT}/bin/gofmt $GOBIN/gofmt
   ln -sf ${GOROOT}/bin/godoc $GOBIN/godoc
-  export PATH="$GOROOT/bin:$PATH"
+  export PATH="$GOBIN:$PATH"
 }
 
 goclean() {
