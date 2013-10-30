@@ -87,5 +87,5 @@ gom() {
     rm -rf vendor
     ln -sf $GOENV_PATH vendor
   fi
-  PATH=$GOBIN:$PATH $GOBIN/gom $@
+  $GOBIN/gom $@
 }
