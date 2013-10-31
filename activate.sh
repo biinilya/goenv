@@ -26,9 +26,7 @@ goenv_setup() {
   # SETTING VARIABLES UP
   GO_URL="https://go.googlecode.com/files/go${GO_VERSION}.${platform}-${MACH}.tar.gz"
   GOENV_HOME="${HOME}/.goenv"
-  GOENV_TOOLS="${GOENV_HOME}/tools"
   mkdir -p $GOENV_HOME
-  mkdir -p $GOENV_TOOLS
   GOENV_PATH="${GOENV_HOME}/${GOENV_NAME}"
   mkdir -p ${GOENV_PATH}
   mkdir -p ${GOENV_PATH}/src
