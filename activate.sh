@@ -82,7 +82,7 @@ gom() {
     return
   fi
   if [ ! -f $GOBIN/gom ]; then
-    $GOBIN/go get github.com/mattn/gom
+    go get github.com/mattn/gom
     rm -rf vendor
     ln -sf $GOENV_PATH vendor
   fi
