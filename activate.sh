@@ -91,3 +91,14 @@ gom() {
   fi
   $GOBIN/gom $@
 }
+
+gocode() {
+  if [[ -z $GOENV_PATH ]]; then
+    echo "You should init goenv before using gocode"
+    return
+  fi
+  if [ ! -f $GOBIN/gocode ]; then
+    $GOBIN/go get github.com/nsf/gocode
+  fi
+  $GOBIN/gocode $@
+}
