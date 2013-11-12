@@ -18,7 +18,7 @@ fi
 
 GO_VERSION=1.1.2
 
-goenv_download() {  
+goenv_download() {
   # DOWNLOADING GO section
   if [ ! -f $GO_DOWNLOAD_FILE ]; then
   	echo $GO_URL
@@ -37,9 +37,7 @@ goenv_setup() {
     fi
   fi
   GOENV_HOME="${HOME}/.goenv"
-  GOENV_TOOLS="${GOENV_HOME}/tools"
   mkdir -p $GOENV_HOME
-  mkdir -p $GOENV_TOOLS
   GOENV_PATH="${GOENV_HOME}/${GOENV_NAME}"
   mkdir -p ${GOENV_PATH}
   mkdir -p ${GOENV_PATH}/src
@@ -54,13 +52,9 @@ goenv_setup() {
   export GOBIN="${GOENV_PATH}/bin"
   export GOPATH="${GOENV_PATH}:$(pwd)"
 
-  ln -sf ${GOROOT}/bin/go $GOBIN/go
-  ln -sf ${GOROOT}/bin/gofmt $GOBIN/gofmt
-  ln -sf ${GOROOT}/bin/godoc $GOBIN/godoc
-
-  alias go="${GOROOT}/bin/go"
-  alias godoc="${GOROOT}/bin/godoc"
-  alias gofmt="${GOROOT}/bin/gofmt"
+  CUR_PATH=$PATH
+  export PATH="${GOROOT}/bin:$GOBIN"
+  for p in ${CUR_PATH//:/ }; do [[ ! "$p" =~ 'goenv' ]] && export PATH="$PATH:$p"; done;
 }
 
 goclean() {
@@ -100,9 +94,20 @@ gom() {
     return
   fi
   if [ ! -f $GOBIN/gom ]; then
-    $GOBIN/go get github.com/mattn/gom
+    go get github.com/mattn/gom
     rm -rf vendor
     ln -sf $GOENV_PATH vendor
   fi
-  PATH=$GOBIN:$PATH $GOBIN/gom $@
+  $GOBIN/gom $@
+}
+
+gocode() {
+  if [[ -z $GOENV_PATH ]]; then
+    echo "You should init goenv before using gocode"
+    return
+  fi
+  if [ ! -f $GOBIN/gocode ]; then
+    $GOBIN/go get github.com/nsf/gocode
+  fi
+  $GOBIN/gocode $@
 }
