@@ -1,6 +1,7 @@
 #!/bin/bash
 
 platform='unknown'
+pversion='unknown'
 unamestr=`uname`
 MACH="amd64"
 if [[ "$unamestr" == 'Linux' ]]; then
@@ -9,6 +10,10 @@ elif [[ "$unamestr" == 'FreeBSD' ]]; then
    platform='freebsd'
 elif [[ "$unamestr" == 'Darwin' ]]; then
    platform='darwin'
+   pversion=$(sw_vers | grep ProductVersion | awk '{print $2;}')
+   if [[ "$pversion" == '10.9' ]]; then
+     pversion="10.8"
+   fi
 fi
 
 GO_VERSION=1.1.2
@@ -16,6 +21,7 @@ GO_VERSION=1.1.2
 goenv_download() {  
   # DOWNLOADING GO section
   if [ ! -f $GO_DOWNLOAD_FILE ]; then
+  	echo $GO_URL
   	curl $GO_URL > $GO_DOWNLOAD_FILE
   	mkdir -p $GO_DIR
   	tar -xvzf $GO_DOWNLOAD_FILE -C $GO_DIR || rm -rf $GO_DOWNLOAD_FILE
@@ -25,6 +31,11 @@ goenv_download() {
 goenv_setup() {
   # SETTING VARIABLES UP
   GO_URL="https://go.googlecode.com/files/go${GO_VERSION}.${platform}-${MACH}.tar.gz"
+  if [ $(expr ${GO_VERSION} \>= 1.2) -eq 1 ]; then
+    if [[ "$platform" == 'darwin' ]]; then
+      GO_URL="https://go.googlecode.com/files/go${GO_VERSION}.${platform}-${MACH}-osx${pversion}.tar.gz"
+    fi
+  fi
   GOENV_HOME="${HOME}/.goenv"
   GOENV_TOOLS="${GOENV_HOME}/tools"
   mkdir -p $GOENV_HOME
@@ -34,6 +45,8 @@ goenv_setup() {
   mkdir -p ${GOENV_PATH}/src
   mkdir -p ${GOENV_PATH}/pkg
   mkdir -p ${GOENV_PATH}/bin
+  
+  
   GO_DOWNLOAD_FILE="${GOENV_HOME}/go${GO_VERSION}.tar.gz"
   GO_DIR="${GOENV_HOME}/go-${GO_VERSION}"
 
@@ -67,6 +80,7 @@ goversion() {
   else
     echo $GO_VERSION
   fi
+  
   goclean
 }
 
