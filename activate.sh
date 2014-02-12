@@ -11,9 +11,9 @@ elif [[ "$unamestr" == 'FreeBSD' ]]; then
 elif [[ "$unamestr" == 'Darwin' ]]; then
    platform='darwin'
    pversion=$(sw_vers | grep ProductVersion | awk '{print $2;}')
-   if [[ "$pversion" == '10.9' ]]; then
+   #if [[ "$pversion" == '10.9' ]]; then
      pversion="10.8"
-   fi
+   #fi
 fi
 
 GO_VERSION=1.2
