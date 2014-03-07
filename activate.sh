@@ -52,6 +52,8 @@ goenv_setup() {
   export GOBIN="${GOENV_PATH}/bin"
   export GOPATH="${GOENV_PATH}:$(pwd)"
 
+  ln -sf $(pwd) ${GOENV_PATH}/src/${GOENV_NAME}
+
   CUR_PATH=$PATH
   export PATH="${GOROOT}/bin:$GOBIN"
   for p in ${CUR_PATH//:/ }; do [[ ! "$p" =~ 'goenv' ]] && export PATH="$PATH:$p"; done;
