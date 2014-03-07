@@ -52,7 +52,7 @@ goenv_setup() {
   export GOBIN="${GOENV_PATH}/bin"
   export GOPATH="${GOENV_PATH}:$(pwd)"
 
-  for FPATH in $(pwd)/src $(pwd)/src/gitlab.ostrovok.ru/ostrovok $(pwd)/src/gitlab.ostrovok.ru/ostrovok/i.biin; do
+  for FPATH in $(pwd)/src $(pwd)/src/gitlab.ostrovok.ru/ostrovok $(pwd)/src/gitlab.ostrovok.ru/i.biin; do
     mkdir -p $FPATH
     ln -sf $(pwd)/ $FPATH/${GOENV_NAME}
   done
