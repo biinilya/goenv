@@ -57,6 +57,28 @@ goenv_setup() {
   for p in ${CUR_PATH//:/ }; do [[ ! "$p" =~ 'goenv' ]] && export PATH="$PATH:$p"; done;
 }
 
+sublgen() {
+  cat > ${GOENV_NAME}.auto.sublime-project << EOF
+  {
+    "folders": [
+    {
+      "follow_symlinks": true,
+      "path": "$(pwd)"
+    }
+  ],
+  "settings": {
+    "GoSublime": {
+      "env": {
+        "GOBIN": "$HOME/.goenv/go-1.2/go/bin",
+        "GOPATH": "$HOME/.goenv/go-hotcore/:$HOME/devel/go-hotcore",
+        "GOROOT": "$HOME/.goenv/go-1.2/go"
+      }
+    }
+  }
+  }
+EOF
+}
+
 goclean() {
   rm -rf ${GOENV_PATH}/pkg || true
 }
@@ -86,6 +108,7 @@ goon() {
   goenv_setup
   goenv_download
   goclean
+  sublgen
 }
 
 gom() {
