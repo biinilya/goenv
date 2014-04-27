@@ -18,7 +18,7 @@ Downside of these method is that you always need an internet connection. But pro
 
 Get the script
 
-	curl https://raw.github.com/biinilya/goenv/master/activate.sh -o ~/.goenv_activate.sh
+	curl https://raw.githubusercontent.com/biinilya/goenv/master/activate.sh -o ~/.goenv_activate.sh
 	
 Source it to get *goenv* commands available
 
