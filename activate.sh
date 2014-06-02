@@ -69,9 +69,9 @@ sublgen() {
   "settings": {
     "GoSublime": {
       "env": {
-        "GOBIN": "$HOME/.goenv/go-1.2/go/bin",
-        "GOPATH": "$HOME/.goenv/go-hotcore/:$HOME/devel/go-hotcore",
-        "GOROOT": "$HOME/.goenv/go-1.2/go"
+        "GOBIN": "$GOBIN",
+        "GOPATH": "$GOPATH",
+        "GOROOT": "$GOROOT"
       }
     }
   }
