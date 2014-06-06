@@ -10,7 +10,7 @@ Yeah, thats it.
 
 Execute this command every time you need to use *goenv*
 
-    GF=$(mktemp -t goenv); curl -s https://raw.github.com/biinilya/goenv/master/activate.sh > $GF; source $GF
+    GF=$(mktemp -t goenv); curl -s https://raw.githubusercontent.com/biinilya/goenv/master/activate.sh > $GF; source $GF
 
 Downside of these method is that you always need an internet connection. But profit is that you are always up to date.
 
@@ -18,7 +18,7 @@ Downside of these method is that you always need an internet connection. But pro
 
 Get the script
 
-	curl https://raw.github.com/biinilya/goenv/master/activate.sh -o ~/.goenv_activate.sh
+	curl https://raw.githubusercontent.com/biinilya/goenv/master/activate.sh -o ~/.goenv_activate.sh
 	
 Source it to get *goenv* commands available
 
