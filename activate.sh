@@ -22,7 +22,7 @@ goenv_download() {
   # DOWNLOADING GO section
   if [ ! -f $GO_DOWNLOAD_FILE ]; then
   	echo $GO_URL
-  	curl $GO_URL > $GO_DOWNLOAD_FILE
+  	curl -k -L $GO_URL > $GO_DOWNLOAD_FILE
   	mkdir -p $GO_DIR
   	tar -xvzf $GO_DOWNLOAD_FILE -C $GO_DIR || rm -rf $GO_DOWNLOAD_FILE
   fi
@@ -30,10 +30,10 @@ goenv_download() {
 
 goenv_setup() {
   # SETTING VARIABLES UP
-  GO_URL="https://go.googlecode.com/files/go${GO_VERSION}.${platform}-${MACH}.tar.gz"
+  GO_URL="https://golang.org/dl/go${GO_VERSION}.${platform}-${MACH}.tar.gz"
   if [ $(expr ${GO_VERSION} \>= 1.2) -eq 1 ]; then
     if [[ "$platform" == 'darwin' ]]; then
-      GO_URL="https://go.googlecode.com/files/go${GO_VERSION}.${platform}-${MACH}-osx${pversion}.tar.gz"
+      GO_URL="https://golang.org/dl/go${GO_VERSION}.${platform}-${MACH}-osx${pversion}.tar.gz"
     fi
   fi
   GOENV_HOME="${HOME}/.goenv"
