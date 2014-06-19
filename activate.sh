@@ -119,7 +119,7 @@ gom() {
   if [ ! -f $GOBIN/gom ]; then
     go get github.com/mattn/gom
     rm -rf _vendor
-    ln -sf $GOENV_PATH _vendor
+    ln -sf $(pwd) _vendor
   fi
   $GOBIN/gom $@
 }
