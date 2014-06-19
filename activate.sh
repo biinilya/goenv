@@ -50,7 +50,7 @@ goenv_setup() {
 
   export GOROOT="${GO_DIR}/go"
   export GOBIN="${GOENV_PATH}/bin"
-  export GOPATH="${GOENV_PATH}:$(pwd)"
+  export GOPATH="$(pwd)"
 
   CUR_PATH=$PATH
   export PATH="${GOROOT}/bin:$GOBIN"
