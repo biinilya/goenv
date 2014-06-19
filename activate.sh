@@ -16,7 +16,7 @@ elif [[ "$unamestr" == 'Darwin' ]]; then
    #fi
 fi
 
-GO_VERSION=1.2
+GO_VERSION=1.3
 
 goenv_download() {
   # DOWNLOADING GO section
