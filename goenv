@@ -1,0 +1,129 @@
+#!/bin/bash
+exec $@
+
+# ge_go_env_contains () {
+# 	WHAT=$1;shift
+# 	for IDX in $@; do
+# 		if [ "$IDX" = "$WHAT" ]; then
+# 			return 0
+# 		fi
+# 	done
+# 	return 1
+# }
+
+# ge_md5 () {
+# 	perl -MDigest::MD5=md5_hex -e "print md5_hex(<>)"|cut -b 1-8
+# }
+
+# ge_bye () {
+# 	echo Failed
+# 	exit 1
+# }
+
+# ge_pkg_install() {
+# 	if [ ! $(which $1) ]; then
+# 		echo "Installing $1"
+# 		go get $2
+# 	fi
+# }
+
+	
+# if [[ ! $1 == "--boostrap" ]]; then
+# 	declare -x ge_HOME=${HOME:-/tmp/goenv-$(whoami)}/.goenv
+# 	declare -x ge_CACHE=$ge_HOME/cache
+
+# 	declare -x ge_OHASH=$( (env;cat $0)|ge_md5 )
+# 	declare -x ge_ORIGINS=$ge_CACHE/$ge_OHASH
+# 	declare -x ge_GO_PROJECT=$(basename "/root$(pwd)"|sed -e "s/\///g")
+# 	declare -x ge_GOEXTRA=$GOEXTRA
+
+# 	if [[ ! -f $ge_ORIGINS ]]; then
+# 		if [[ ! -z $VERBOSE ]]; then
+# 			env -i $(env|grep ge_) PATH=$PATH $0 --boostrap || exit 1
+# 		else
+# 			env -i $(env|grep ge_) PATH=$PATH $0 --boostrap \
+# 				1>/tmp/goenv.stdout 2>/tmp/goenv.stderr || exit 1 
+# 		fi
+# 	fi
+
+# 	. $ge_ORIGINS
+# 	exec "$@"
+# fi
+
+# if [[ -f $ge_ORIGINS ]]; then
+# 	exit
+# fi
+
+# ge_GMV_VERSION=1.0.22
+# ge_HOME_COMPAT=$ge_HOME/1.0
+# ge_GVM_HOME=$ge_HOME/gvm
+# ge_INSTALLER=moovweb/gvm/$ge_GMV_VERSION/binscripts/gvm-installer
+# ge_INSTALLER_CACHE=$ge_CACHE/gvm-installer.$ge_GMV_VERSION
+# ge_GO_VERSION=go1.4
+
+# ge_VM_NO_UPDATE_PROFILE=1 
+# ge_TERM=linux
+
+
+# if [[ ! -f $ge_HOME_COMPAT ]]; then
+# 	if [[ -e $ge_HOME ]]; then
+# 		rm -rf $ge_HOME || ge_bye
+# 	fi
+# fi
+
+# mkdir -p $ge_CACHE || ge_bye
+# touch $ge_HOME_COMPAT || ge_bye
+
+# cd /tmp
+# if [[ ! -x $ge_INSTALLER_CACHE ]]; then
+# 	curl -sL https://raw.githubusercontent.com/$ge_INSTALLER > $ge_INSTALLER_CACHE.part || ge_bye
+# 	mv $ge_INSTALLER_CACHE.part $ge_INSTALLER_CACHE
+# 	chmod a+x $ge_INSTALLER_CACHE
+# fi
+
+# if [[ ! -f $ge_GVM_HOME/scripts/gvm ]]; then
+# 	echo "Installing gvm"
+# 	TERM=$ge_TERM \
+# 	$ge_INSTALLER_CACHE $ge_GMV_VERSION $ge_HOME || ge_bye
+# fi
+
+# echo "Activating gvm"
+# . $ge_GVM_HOME/scripts/gvm || ge_bye
+
+# if ! ge_go_env_contains $ge_GO_VERSION $(gvm list|grep -Eo "go[^ ]*$"); then
+# 	TERM=$ge_TERM \
+# 	gvm install $ge_GO_VERSION --prefer-binary || ge_bye
+# fi
+
+# if [ -z $(echo $GOROOT|grep -E "/$ge_GO_VERSION$") ]; then
+# 	gvm use $ge_GO_VERSION || ge_bye
+# fi
+
+# ge_pkg_install errcheck github.com/kisielk/errcheck
+# ge_pkg_install godep github.com/tools/godep
+# ge_pkg_install goimports golang.org/x/tools/cmd/goimports
+# ge_pkg_install golint github.com/golang/lint/golint
+# ge_pkg_install pkgreflect github.com/ungerik/pkgreflect
+# ge_pkg_install vet golang.org/x/tools/cmd/vet/whitelist
+# ge_pkg_install vet golang.org/x/tools/cmd/vet
+# ge_pkg_install digraph golang.org/x/tools/cmd/digraph
+# ge_pkg_install eg golang.org/x/tools/cmd/eg
+# ge_pkg_install callgraph golang.org/x/tools/cmd/callgraph
+
+# if ! ge_go_env_contains $ge_GO_PROJECT $(gvm pkgset list|grep -Eo "[^ \(\)]*$"); then
+# 	gvm pkgset create $ge_GO_PROJECT || ge_bye
+# fi
+
+# if [ -z $(echo $GOPATH|grep -E "/$ge_GO_PROJECT:") ]; then
+# 	gvm pkgset use $ge_GO_PROJECT || ge_bye
+# fi
+
+# if [ -f "$ge_GO_PROJECT.env" ]; then
+# 	. "$ge_GO_PROJECT.env" || ge_bye
+# fi
+
+# if [[ ! -z $ge_GOEXTRA ]]; then
+# 	GOPATH=$GOPATH:$ge_GOEXTRA
+# fi
+
+# env|grep -v ge_|sed -Ee 's/([^=]*)=(.*)$/export \1="\2"/g' > $ge_ORIGINS
