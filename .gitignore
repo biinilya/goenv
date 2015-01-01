@@ -1,0 +1,4 @@
+goenv.egg-info
+*.pyc
+.DS_Store
+pkg
