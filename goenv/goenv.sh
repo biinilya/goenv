@@ -48,7 +48,7 @@ ge_prepare_env() {
 	fi
 
 	if [[ ! -z $GOEXTRA ]]; then
-		GOPATH=$GOPATH:$GOEXTRA
+		GOPATH=$GOEXTRA:$GOPATH
 	fi
 
 	if [[ ! -z $GOENV_CONTRIB ]]; then

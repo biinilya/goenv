@@ -9,12 +9,14 @@ files = \
       for x in os.walk('goenv/data')
     ]
   )
+] + [
+  'goenv.sh'
 ]
 
 
 setup(
   name='goenv',
-  version='0.0.1',
+  version='0.0.4',
   description='Golang environment manager',
   url='https://github.com/biinilya/goenv',
   author='Ilya Biin',
