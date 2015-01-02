@@ -3,10 +3,10 @@ from setuptools import setup
 
 files = \
 [
-  t.replace('virtualenv/', '') for t in reduce(
+  t.replace('goenv/', '') for t in reduce(
     lambda a, b: a+b, [
       map(lambda y: x[0]+'/'+y, x[2]) \
-      for x in os.walk('virtualenv/data')
+      for x in os.walk('goenv/data')
     ]
   )
 ]
@@ -19,7 +19,7 @@ setup(
   url='https://github.com/biinilya/goenv',
   author='Ilya Biin',
   author_email='me@ilyabiin.com',
-  packages=['virtualenv'],
-  scripts=['virtualenv/goenv'],
-  package_data={'virtualenv': files},
+  packages=['goenv'],
+  scripts=['goenv/goenv'],
+  package_data={'goenv': files},
 )
