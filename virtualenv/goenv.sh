@@ -84,4 +84,4 @@ if [[ ! -f $ge_ORIGINS ]]; then
 fi
 
 . $ge_ORIGINS
-exec $@
+exec "$@"
