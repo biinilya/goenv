@@ -21,6 +21,11 @@ ge_bye () {
 	exit 1
 }
 
+ge_dump_env () {
+	export GOENV_UPDATED=$(echo $(env|grep -o '[^=]*'))
+	env|grep -vE "ge_|PWD"|sed -Ee 's/([^=]*)=(.*)$/export \1="\2"/g'
+}
+
 ge_pkg_install() {
 	ge_PKGID=$ge_HOME/pkg_$1
 	if [[ ! -f $ge_PKGID ]]; then
@@ -66,10 +71,8 @@ ge_prepare_env() {
 	ge_pkg_install eg golang.org/x/tools/cmd/eg
 	ge_pkg_install callgraph golang.org/x/tools/cmd/callgraph
 
-
-	find $ge_HOME -iname "__env.*" -exec rm {} \;
-	env|grep -v ge_|sed -Ee 's/([^=]*)=(.*)$/export \1="\2"/g' > $ge_ORIGINS
-	ln -sf $ge_ORIGINS $ge_HOME/activate
+	find $ge_HOME -iname "__env.*" -mtime +1 -exec rm {} \;
+	ge_dump_env > $ge_ORIGINS
 }
 
 ge_HOME=$GOENV_DIR/.goenv
@@ -83,6 +86,10 @@ if [[ ! -f $ge_ORIGINS ]]; then
 	else
 		ge_prepare_env 1>/dev/null
 	fi
+fi
+
+if [[ $1 == "activate" ]]; then
+	exec cat $ge_ORIGINS
 fi
 
 umask $OLD_UMASK
