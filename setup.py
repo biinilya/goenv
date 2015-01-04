@@ -16,7 +16,7 @@ files = \
 
 setup(
   name='goenv',
-  version='0.0.5',
+  version='0.0.7',
   description='Golang environment manager',
   url='https://github.com/biinilya/goenv',
   author='Ilya Biin',

@@ -1,4 +1,6 @@
 #!/bin/bash
+OLD_UMASK=$(umask)
+umask 0000
 
 ge_go_env_contains () {
 	WHAT=$1;shift
@@ -83,5 +85,6 @@ if [[ ! -f $ge_ORIGINS ]]; then
 	fi
 fi
 
+umask $OLD_UMASK
 . $ge_ORIGINS
 exec "$@"
