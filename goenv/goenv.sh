@@ -47,6 +47,12 @@ ge_prepare_env() {
 		gvm use $ge_GO_VERSION || ge_bye
 	fi
 
+	if [[ ! -z $VIRTUAL_ENV ]]; then 
+		PRJ=$(basename $VIRTUAL_ENV)
+		gvm pkgset create $PRJ 2>/dev/null
+		gvm pkgset use $PRJ
+	fi
+
 	export GOBIN=$ge_HOME/bin
 	export PATH=$GOBIN:$PATH
 
