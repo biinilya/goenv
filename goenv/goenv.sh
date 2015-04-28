@@ -82,7 +82,7 @@ ge_prepare_env() {
 }
 
 ge_HOME=$GOENV_DIR/.goenv
-ge_GO_VERSION=go1.4
+ge_GO_VERSION=go1.4.2
 ge_OHASH=$( (env;cat $0)|ge_md5 )
 ge_ORIGINS=$ge_HOME/__env.$ge_OHASH
 
