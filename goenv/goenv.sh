@@ -76,6 +76,7 @@ ge_prepare_env() {
 	ge_pkg_install digraph golang.org/x/tools/cmd/digraph
 	ge_pkg_install eg golang.org/x/tools/cmd/eg
 	ge_pkg_install callgraph golang.org/x/tools/cmd/callgraph
+	ge_pkg_install gb github.com/constabulary/gb
 
 	find $ge_HOME -iname "__env.*" -mtime +1 -exec rm {} \;
 	ge_dump_env > $ge_ORIGINS
